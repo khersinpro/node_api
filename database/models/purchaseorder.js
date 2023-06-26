@@ -20,6 +20,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   purchaseorder.init({
+    price: {
+      type: DataTypes.FLOAT,
+      allowNull: false
+    },
+    invoiced: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
+    },
     delivery: {
       type: DataTypes.BOOLEAN,
       allowNull: true,
