@@ -1,0 +1,32 @@
+{
+  "name": "test_projet_node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "debug": "^4.3.4",
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "http-errors": "^2.0.0",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.4.0",
+    "nodemon": "^2.0.22",
+    "sequelize": "^6.32.1"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "SET DEBUG=back:* SET NODE_ENV=developement & nodemon ./bin/www",
+    "start:prod": "SET NODE_ENV=production & node ./bin/www",
+    "sync": "node ./database/utils/database_sync.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
