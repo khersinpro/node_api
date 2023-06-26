@@ -23,8 +23,7 @@ const modelList = [
   require('./models/article'),
   require('./models/ingredient'),
   require('./models/purchaseorder'),
-  require('./models/order'),
-  // require('./models/article_ingredient'):
+  require('./models/order')
 ];
 
 
@@ -36,6 +35,7 @@ Object.values(sequelize.models)
 .filter(model => typeof model.associate === "function")
 .forEach(model => model.associate(sequelize.models));
 
+db.models = sequelize.models;
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

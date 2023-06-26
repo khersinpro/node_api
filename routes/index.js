@@ -7,10 +7,10 @@ const ingredientRoutes      = require('./ingredient.routes');
 const userRoutes            = require('./user.routes');
 const roleRoutes            = require('./role.routes');
 
-router.use(userRoutes);
-router.use(ingredientRoutes);
-router.use(articleRoutes);
-router.use(purchaseorderRoutes);
-router.use(roleRoutes);
+router.use('/user', userRoutes);
+router.use('/ingredient', ingredientRoutes);
+router.use('/article', articleRoutes);
+router.use('/purchaseorder', purchaseorderRoutes);
+router.use('/role', roleRoutes);
 
 module.exports = router;
