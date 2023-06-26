@@ -10,7 +10,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       nb_articles: {
-        type: Sequelize.NUMBER
+        allowNull: false,
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

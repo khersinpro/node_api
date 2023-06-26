@@ -21,7 +21,10 @@ const modelList = [
   require('./models/user'),
   require('./models/roles'),
   require('./models/article'),
-  require('./models/ingredient')
+  require('./models/ingredient'),
+  require('./models/purchaseorder'),
+  require('./models/order'),
+  // require('./models/article_ingredient'):
 ];
 
 
