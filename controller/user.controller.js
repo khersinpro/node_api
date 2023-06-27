@@ -1,4 +1,5 @@
 const { models } = require('../database/index');
+const {createJwtToken, sendJwtCookie}    = require('../middleware/auth/auth');
 
 /**
  * Récupération d'un utilisateur par son id
@@ -51,11 +52,12 @@ exports.getAll = async (req, res, next) => {
 exports.signup = async (req, res, next) => {
     try 
     {
-        const { firstname, lastname, email, password } = req.body;
+        console.log(req.body);
+        const { firstName, lastName, email, password } = req.body;
 
-        const user = await models.User.createOne({
-            firstname, 
-            lastname, 
+        const user = await models.User.create({
+            firstName, 
+            lastName, 
             email, 
             password 
         });
@@ -92,6 +94,9 @@ exports.signin = async (req, res, next) => {
         {
             res.status(403).json('Mot de passe incorrect');
         }
+
+        const token = createJwtToken(user.id);
+        sendJwtCookie(token, res);
 
         res.status(201).json(user);
     }

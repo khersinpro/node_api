@@ -53,7 +53,7 @@ exports.createOne = async (req, res, next) => {
     {
         const { name, description } = req.body;
 
-        const role = await models.Roles.createOne({
+        const role = await models.Roles.create({
             name, 
             description
         });
