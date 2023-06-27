@@ -100,6 +100,23 @@ exports.udpateOne = async (req, res, next) => {
 /**
  * Suppression d'une commande **ADMIN**
  */
-exports.deleteOne = (req, res, next) => {
+exports.deleteOne = async (req, res, next) => {
+    try 
+    {
+        const orderId     = req.params.id;
+        const order       = await models.Order.findByPk(orderId);
+        
+        if (!order) 
+        {
+            return res.status(404).json('Aucun resultat.');
+        }
 
+        await order.destroy();
+
+        res.status(200).json('Commande supprimé')    
+    }
+    catch (error)
+    {
+        next(error);
+    }
 }

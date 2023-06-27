@@ -99,6 +99,23 @@ exports.udpateOne = async (req, res, next) => {
 /**
  * Suppression d'un role **ADMIN**
  */
-exports.deleteOne = (req, res, next) => {
+exports.deleteOne = async (req, res, next) => {
+    try 
+    {
+        const roleName     = req.params.id;
+        const role         = await models.Roles.findByPk(roleName);
+        
+        if (!role) 
+        {
+            return res.status(404).json('Aucun resultat.');
+        }
 
+        await role.destroy();
+
+        res.status(200).json('Role supprimé');    
+    }
+    catch (error)
+    {
+        next(error);
+    }
 }

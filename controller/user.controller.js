@@ -90,7 +90,7 @@ exports.udpateOne = async (req, res, next) => {
         await user.update(req.body);
         await user.save();
 
-        res.status(200).json(user)    
+        res.status(200).json(user);   
     }
     catch (error)
     {
@@ -101,6 +101,23 @@ exports.udpateOne = async (req, res, next) => {
 /**
  * Suppression d'un article **ADMIN**
  */
-exports.deleteOne = (req, res, next) => {
+exports.deleteOne = async (req, res, next) => {
+    try 
+    {
+        const userId     = req.params.id;
+        const user       = await models.User.findByPk(userId);
+        
+        if (!user) 
+        {
+            return res.status(404).json('Aucun resultat.');
+        }
 
+        await user.destroy();
+
+        res.status(200).json('Utilisateur supprimé');    
+    }
+    catch (error)
+    {
+        next(error);
+    }
 }

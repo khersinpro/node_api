@@ -74,13 +74,48 @@ exports.createOne = async (req, res, next) => {
 /**
  * Modification d'un bon de commande **ADMIN**
  */
-exports.udpateOne = (req, res, next) => {
+exports.udpateOne = async (req, res, next) => {
+    try 
+    {
+        const purchaseorderId     = req.params.id;
+        const purchaseorder       = await models.Purchaseorder.findByPk(purchaseorderId);
+        
+        if (!purchaseorder) 
+        {
+            return res.status(404).json('Aucun resultat.');
+        }
 
+        await purchaseorder.udpate(req.body);
+        await purchaseorder.save();
+
+        res.status(200).json(purchaseorder)    
+    }
+    catch (error)
+    {
+        next(error);
+    }
 }
 
 /**
  * Suppression d'un bon de commande **ADMIN**
  */
-exports.deleteOne = (req, res, next) => {
+exports.deleteOne = async (req, res, next) => {
+    try 
+    {
+        const purchaseorderId     = req.params.id;
+        const purchaseorder       = await models.Purchaseorder.findByPk(purchaseorderId);
+        
+        if (!purchaseorder) 
+        {
+            return res.status(404).json('Aucun resultat.');
+        }
 
+        await purchaseorder.destroy();
+        
+        res.status(200).json("Bon de commande supprimé")    
+    }
+    catch (error)
+    {
+        next(error);
+    }
 }

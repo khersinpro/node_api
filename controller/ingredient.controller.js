@@ -99,6 +99,23 @@ exports.udpateOne = async (req, res, next) => {
 /**
  * Suppression d'un ingrédient **ADMIN**
  */
-exports.deleteOne = (req, res, next) => {
+exports.deleteOne = async (req, res, next) => {
+    try 
+    {
+        const ingredientId     = req.params.id;
+        const ingredient       = await models.Ingredient.findByPk(ingredientId);
+        
+        if (!ingredient) 
+        {
+            return res.status(404).json('Aucun resultat.');
+        }
 
+        await ingredient.destroy();
+
+        res.status(200).json('Ingredient supprimé')    
+    }
+    catch (error)
+    {
+        next(error);
+    }
 }

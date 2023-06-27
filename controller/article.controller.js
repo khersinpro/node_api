@@ -100,6 +100,23 @@ exports.udpateOne = async (req, res, next) => {
 /**
  * Suppression d'un article **ADMIN**
  */
-exports.deleteOne = (req, res, next) => {
+exports.deleteOne = async (req, res, next) => {
+    try 
+    {
+        const articleId     = req.params.id;
+        const article       = await models.Article.findByPk(articleId);
+        
+        if (!article) 
+        {
+            return res.status(404).json('Aucun resultat.');
+        }
 
+        await article.destroy();
+        
+        res.status(200).json("Article supprimé")    
+    }
+    catch (error)
+    {
+        next(error);
+    }
 }
