@@ -1,7 +1,7 @@
 const { models } = require('../database/index');
 
 /**
- * Récupération d'un article par son id
+ * Récupération d'un utilisateur par son id
  */
 exports.getOne = async (req, res, next) => {
     try 
@@ -23,7 +23,7 @@ exports.getOne = async (req, res, next) => {
 }
 
 /**
- * Récupération de tout les articles
+ * Récupération de tout les utilisateurs
  */
 exports.getAll = async (req, res, next) => {
     try 
@@ -46,9 +46,9 @@ exports.getAll = async (req, res, next) => {
 }
 
 /**
- * Création d'un article **ADMIN**
+ * Création d'un utilisateur **ADMIN**
  */
-exports.createOne = async (req, res, next) => {
+exports.signup = async (req, res, next) => {
     try 
     {
         const { firstname, lastname, email, password } = req.body;
@@ -74,7 +74,35 @@ exports.createOne = async (req, res, next) => {
 }
 
 /**
- * Modification d'un article **ADMIN**
+ * Connexion d'un utilisateur 
+ */
+exports.signin = async (req, res, next) => {
+    try 
+    {
+        const { email, password } = req.body;
+
+        const user = await models.User.findOne({where: {email: email}});
+
+        if (!user)
+        {
+            return res.status(400).res('Une erreur est survenu.');
+        }
+
+        if (!user.checkPassword(password))
+        {
+            res.status(403).json('Mot de passe incorrect');
+        }
+
+        res.status(201).json(user);
+    }
+    catch(error)
+    {
+        next(error);
+    }
+}
+
+/**
+ * Modification d'un utilisateur 
  */
 exports.udpateOne = async (req, res, next) => {
     try 
@@ -99,7 +127,7 @@ exports.udpateOne = async (req, res, next) => {
 }
 
 /**
- * Suppression d'un article **ADMIN**
+ * Suppression d'un utilisateur **ADMIN**
  */
 exports.deleteOne = async (req, res, next) => {
     try 

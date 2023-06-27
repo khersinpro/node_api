@@ -1,14 +1,21 @@
 'use strict';
 const express = require('express');
 const router  = express.Router();
+const {
+    getOne,
+    getAll,
+    createOne,
+    udpateOne,
+    deleteOne
+}   = require('../controller/ingredient.controller');
 
-// utilisateur
-router.get('/');
-router.get('/:id');
+/*** UTILISATEUR ***/ 
+router.get('/', getAll); 
+router.get('/:id', getOne); 
 
-//admin
-router.post('/create');
-router.put('/update/:id');
-router.delete('/delete/:id');
+/*** ADMINISTRATEUR ***/
+router.post('/create', createOne); 
+router.put('/update', udpateOne); 
+router.delete('/delete/:id', deleteOne); 
 
 module.exports = router;

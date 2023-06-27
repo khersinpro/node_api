@@ -1,15 +1,22 @@
 'use strict';
 const express = require('express');
 const router  = express.Router();
+const {
+    getOne,
+    getAll,
+    createOne,
+    udpateOne,
+    deleteOne
+}   = require('../controller/roles.controller');
 
-// utilisateur
-router.get('/'); // getall
-router.get('/:id'); // getone
+/*** UTILISATEUR ***/ 
+router.get('/', getAll); 
+router.get('/:id', getOne); 
 
-// admin
-router.post('/create'); //createone
-router.put('/update'); // updateone
-router.delete('/delete/:id'); // deleteone
+/*** ADMINISTRATEUR ***/
+router.post('/create', createOne); 
+router.put('/update', udpateOne); 
+router.delete('/delete/:id', deleteOne); 
 
 module.exports = router;
 
