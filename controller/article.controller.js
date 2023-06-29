@@ -86,6 +86,13 @@ exports.udpateOne = async (req, res, next) => {
             return res.status(404).json('Aucun resultat.');
         }
 
+        if (req.body.ingredient_id)
+        {
+            const ingredient = await models.Ingredient.findByPk(req.body.ingredient_id);
+            if (!ingredient) { return res.status(404).json('Aucun ingredient trouvé.') };
+            await article.addIngredient(ingredient);
+        }
+
         await article.update(req.body);
         await article.save();
 

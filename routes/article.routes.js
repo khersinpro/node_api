@@ -16,7 +16,7 @@ router.get('/:id', getOne);
 
 /*** ADMINISTRATEUR ***/
 router.post('/create', guard, createOne); 
-router.put('/update', guard, udpateOne); 
+router.put('/update/:id', guard, udpateOne); 
 router.delete('/delete/:id', guard, deleteOne); 
 
 module.exports = router;
