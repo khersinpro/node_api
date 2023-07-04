@@ -53,7 +53,7 @@ exports.createOne = async (req, res, next) => {
     {
         const {name, description, price} = req.body;
 
-        const article = await models.Article.createOne({
+        const article = await models.Article.create({
             name,
             description,
             price

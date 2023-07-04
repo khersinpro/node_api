@@ -53,7 +53,7 @@ exports.createOne = async (req, res, next) => {
     {
         const { name, description } = req.body;
 
-        const ingredient = await models.Ingredient.createOne({
+        const ingredient = await models.Ingredient.create({
             name, 
             description
         });
@@ -85,7 +85,7 @@ exports.udpateOne = async (req, res, next) => {
             return res.status(404).json('Aucun resultat.');
         }
 
-        await ingredient.udpate(req.body);
+        await ingredient.update(req.body);
         await ingredient.save();
 
         res.status(200).json(ingredient)    
