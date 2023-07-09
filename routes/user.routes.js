@@ -8,15 +8,19 @@ const {
     signup,
     signin,
     udpateOne,
-    deleteOne
+    deleteOne,
+    getUserConnected,
+    logout
 }   = require('../controller/user.controller');
 
 /*** UTILISATEUR ***/ 
 router.get('/', getAll); 
-router.get('/:id', getOne); 
 router.post('/signup', signup); 
 router.post('/signin', signin); 
+router.get('/logout', guard, logout);
+router.get('/check', guard, getUserConnected);
 router.put('/update/:id', guard, udpateOne); 
+router.get('/:id', getOne); 
 
 /*** ADMINISTRATEUR ***/
 router.delete('/delete/:id', guard, deleteOne); 

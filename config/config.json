@@ -1,9 +1,10 @@
 {
   "development": {
-    "username": "root",
+    "username": "kevin",
     "password": null,
     "database": "test_nodjs",
     "host": "127.0.0.1",
+    "port": "8889",
     "dialect": "mysql"
   },
   "test": {

@@ -52,14 +52,13 @@ exports.getAll = async (req, res, next) => {
 exports.signup = async (req, res, next) => {
     try 
     {
-        console.log(req.body);
         const { firstName, lastName, email, password } = req.body;
 
         const user = await models.User.create({
             firstName, 
             lastName, 
             email, 
-            password 
+            password
         });
 
         if (!user)
@@ -92,7 +91,7 @@ exports.signin = async (req, res, next) => {
 
         if (!user.checkPassword(password))
         {
-            res.status(403).json('Mot de passe incorrect');
+            return res.status(403).json('Mot de passe incorrect');
         }
 
         const token = createJwtToken(user.id);
@@ -153,4 +152,19 @@ exports.deleteOne = async (req, res, next) => {
     {
         next(error);
     }
+}
+
+/**
+ * Récupération de l'utilisateur connecté via son cookie
+ */
+exports.getUserConnected  = (req, res, next) => {
+    res.status(200).json(req.user);
+}
+
+/**
+ * Déconnexion d'un utilisateur
+ */
+exports.logout = (req, res, next) => {
+    res.clearCookie('jwt');
+    res.status(200).json('logout');
 }

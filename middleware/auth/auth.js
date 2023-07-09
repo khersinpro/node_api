@@ -67,6 +67,8 @@ exports.extractUserFromToken = async (req, res, next) => {
     try 
     {
         const token = req.cookies.jwt;
+
+        console.log(req.cookies);
     
         if (!token || token === undefined || token === null) 
         { 
