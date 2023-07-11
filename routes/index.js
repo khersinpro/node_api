@@ -6,12 +6,12 @@ const articleRoutes         = require('./article.routes');
 const ingredientRoutes      = require('./ingredient.routes');
 const userRoutes            = require('./user.routes');
 const roleRoutes            = require('./role.routes');
-const { guard }             = require('../middleware/auth/auth');
+const { isAdmin }             = require('../middleware/auth/auth');
 
 router.use('/user', userRoutes);
 router.use('/ingredient', ingredientRoutes);
 router.use('/article', articleRoutes);
-router.use('/purchaseorder', guard, purchaseorderRoutes);
-router.use('/role', guard, roleRoutes);
+router.use('/purchaseorder', isAdmin, purchaseorderRoutes);
+router.use('/role', isAdmin, roleRoutes);
 
 module.exports = router;

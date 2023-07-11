@@ -1,7 +1,7 @@
 'use strict';
 const express   = require('express');
 const router    = express.Router();
-const { guard } = require('../middleware/auth/auth');
+const { guard, isAdmin } = require('../middleware/auth/auth');
 const {
     getOne,
     getAll,
@@ -14,7 +14,7 @@ const {
 }   = require('../controller/user.controller');
 
 /*** UTILISATEUR ***/ 
-router.get('/', getAll); 
+router.get('/', isAdmin, getAll); 
 router.post('/signup', signup); 
 router.post('/signin', signin); 
 router.get('/logout', guard, logout);
@@ -23,6 +23,6 @@ router.put('/update/:id', guard, udpateOne);
 router.get('/:id', getOne); 
 
 /*** ADMINISTRATEUR ***/
-router.delete('/delete/:id', guard, deleteOne); 
+router.delete('/delete/:id', isAdmin, deleteOne); 
 
 module.exports = router;

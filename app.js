@@ -50,7 +50,7 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500).json(req.app.get('env') === 'development' ? err.message : 'Une erreur est survenue!');
 });
 
-database.sequelize.authenticate()
+database.sequelize.sync()
 .then(() => console.log('Connexion réussi'))
 .catch((err) => console.error(err))
 

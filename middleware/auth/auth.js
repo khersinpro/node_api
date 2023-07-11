@@ -16,6 +16,19 @@ exports.guard = (req, res, next) => {
 }
 
 /**
+ * Controle si l'utilisateur a le statut administrateur
+ */
+exports.isAdmin = (req, res, next) => {
+    if (req.user && req.user.role_name === "ROLE_ADMIN") 
+    {
+        next();
+    } else 
+    {
+        res.status(403).json('Vous n\'etes pas autorisé a aller sur cette page.');
+    }
+}
+
+/**
  * Retourne un nouveau jsonwebtoken
  */
 exports.createJwtToken = (userId) => {
@@ -67,8 +80,6 @@ exports.extractUserFromToken = async (req, res, next) => {
     try 
     {
         const token = req.cookies.jwt;
-
-        console.log(req.cookies);
     
         if (!token || token === undefined || token === null) 
         { 
@@ -77,8 +88,18 @@ exports.extractUserFromToken = async (req, res, next) => {
     
         let decodedToken    =   jwt.verify(token, process.env.JWT_PWD, { ignoreExpiration: true }); 
         decodedToken        =   this.checkTokenExpiration(decodedToken, res); 
-        const user          =   await models.User.findByPk(decodedToken.userId);
+        const user          =   await models.User.findByPk(decodedToken.userId, {
+            attributes: ['id', 'firstName', 'lastName', 'email', 'role_name'],
+            // include: [
+            //     {
+            //         model: models.Roles,
+            //         attributes: ['name'],
+            //         // as: 'role',
+            //     }   
+            // ] 
+        });
 
+        console.log(user);
         if (user) 
         {
             req.user = user;

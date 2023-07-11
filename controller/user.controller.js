@@ -158,6 +158,7 @@ exports.deleteOne = async (req, res, next) => {
  * Récupération de l'utilisateur connecté via son cookie
  */
 exports.getUserConnected  = (req, res, next) => {
+    
     res.status(200).json(req.user);
 }
 

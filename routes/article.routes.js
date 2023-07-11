@@ -1,6 +1,6 @@
 'use strict';
 const express   = require('express');
-const { guard } = require('../middleware/auth/auth');
+const { guard, isAdmin } = require('../middleware/auth/auth');
 const router    = express.Router();
 const {
     getOne,
@@ -15,9 +15,9 @@ router.get('/', getAll);
 router.get('/:id', getOne); 
 
 /*** ADMINISTRATEUR ***/
-router.post('/create', guard, createOne); 
-router.put('/update/:id', guard, udpateOne); 
-router.delete('/delete/:id', guard, deleteOne); 
+router.post('/create', isAdmin, createOne); 
+router.put('/update/:id', isAdmin, udpateOne); 
+router.delete('/delete/:id', isAdmin, deleteOne); 
 
 module.exports = router;
 
